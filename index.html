@@ -280,8 +280,26 @@
       text += "배정 시간:\n";
 
       task.ranges.forEach(r => {
-        text += " - " + r.start + " ~ " + r.end + "\n";
-      });
+        const start = toMinutes(r.start);
+  const end = toMinutes(r.end);
+  const duration = end - start;
+
+  const h = Math.floor(duration / 60);
+  const m = duration % 60;
+
+  let durationText = "";
+
+  if (h > 0) {
+    durationText += h + "시간 ";
+  }
+
+  if (m > 0) {
+    durationText += m + "분";
+  }
+
+  text += " - " + r.start + " ~ " + r.end +
+          " (" + durationText.trim() + ")" + "\n";
+});
 
       text += "완료 시각: " + task.endTime + "\n\n";
     });
